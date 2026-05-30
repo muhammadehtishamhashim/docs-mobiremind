@@ -1,0 +1,5 @@
+{
+  "title": "Admin",
+  "root": true,
+  "pages": ["index", "..."]
+}

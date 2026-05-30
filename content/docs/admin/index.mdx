@@ -1,0 +1,44 @@
+---
+title: Admin Overview
+description: |
+  Complete guide for MobiRemind Admins.
+  Manage users, settings, and platform configurations.
+---
+
+# Admin Overview
+
+Welcome to the **Admin** documentation for MobiRemind. This section covers everything an administrator needs to manage and configure the platform.
+
+## Getting Started
+
+As an Admin, you have full control over:
+
+- **User Management** — Add, remove, and manage team members and salespeople.
+- **Platform Settings** — Configure reminders, integrations, and global preferences.
+- **Analytics & Reports** — View detailed performance metrics across your team.
+
+## Dashboard
+
+The Admin Dashboard gives you a bird's-eye view of:
+
+- Active campaigns
+- Team performance
+- System health and uptime
+
+## User Roles
+
+| Role       | Permissions                              |
+| ---------- | ---------------------------------------- |
+| `admin`    | Full access to all settings and features |
+| `salesman` | Access to assigned campaigns and leads   |
+| `viewer`   | Read-only access to reports              |
+
+## Configuration
+
+To configure admin settings, navigate to **Settings → Admin Panel** in your MobiRemind dashboard.
+
+```ts
+// Example: Fetch all users via Admin API
+const users = await mobiremind.admin.getUsers();
+console.log(users);
+```

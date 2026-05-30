@@ -1,0 +1,48 @@
+---
+title: Salesman Overview
+description: |
+  Your complete guide to using MobiRemind as a Salesman.
+  Manage leads, campaigns, and track your performance.
+---
+
+# Salesman Overview
+
+Welcome to the **Salesman** documentation for MobiRemind. This section is your go-to resource for managing leads, running campaigns, and hitting your targets.
+
+## Getting Started
+
+As a Salesman, you can:
+
+- **Manage Leads** — View, filter, and follow up on your assigned leads.
+- **Run Campaigns** — Execute reminder campaigns and track their effectiveness.
+- **Track Performance** — Monitor your call metrics and conversion rates in real time.
+
+## Your Dashboard
+
+The Salesman Dashboard shows you:
+
+- Today's scheduled reminders
+- Lead pipeline status
+- Performance leaderboard
+
+## Campaign Management
+
+| Feature          | Description                                    |
+| ---------------- | ---------------------------------------------- |
+| `Auto-Reminders` | Schedule automated follow-up calls and SMS     |
+| `Lead Scoring`   | Prioritize leads based on engagement level     |
+| `Call Logs`      | Full history of all customer interactions      |
+
+## Quick Start
+
+Navigate to **Campaigns → New Campaign** to get started with your first automated reminder sequence.
+
+```ts
+// Example: Create a new reminder campaign
+const campaign = await mobiremind.campaigns.create({
+  name: 'Q3 Follow-ups',
+  leads: myLeadList,
+  schedule: 'daily',
+});
+console.log(campaign.id);
+```

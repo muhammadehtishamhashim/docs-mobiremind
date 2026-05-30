@@ -1,0 +1,5 @@
+{
+  "title": "Salesman",
+  "root": true,
+  "pages": ["index", "..."]
+}

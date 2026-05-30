@@ -15,7 +15,7 @@ import { gitConfig } from "@/lib/shared";
 import { useFumadocsLoader } from "fumadocs-core/source/client";
 import { getPageImagePath } from "@/lib/og";
 import { useMDXComponents } from "@/components/mdx";
-import { Book, Mic } from "lucide-react";
+import { ShieldCheck, TrendingUp, Mic } from "lucide-react";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const slugs = (params["*"] ?? "").split("/").filter((v) => v.length > 0);
@@ -23,7 +23,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   if (slugs.length === 0) {
     throw new Response(null, {
       status: 302,
-      headers: { Location: "/docs/overview" },
+      headers: { Location: "/docs/admin" },
     });
   }
 
@@ -41,7 +41,6 @@ export async function loader({ params }: Route.LoaderArgs) {
 const clientLoader = browserCollections.docs.createClientLoader({
   component(
     { toc, frontmatter, default: Mdx },
-    // you can define props for the `<Content />` component
     {
       markdownUrl,
       path,
@@ -82,20 +81,26 @@ export default function Page({ loaderData }: Route.ComponentProps) {
   const { path, pageTree, imagePath, markdownUrl } =
     useFumadocsLoader(loaderData);
 
+  const isSalesman = path.startsWith("salesman");
   const isVoiceAgent = path.startsWith("voice-agent");
+
+  const theme = isSalesman ? "theme-green" : isVoiceAgent ? "theme-yellow" : "theme-cyan";
 
   return (
     <DocsLayout
       {...baseOptions()}
       tree={pageTree}
-      containerProps={{
-        className: isVoiceAgent ? "theme-yellow" : "theme-cyan",
-      }}
+      containerProps={{ className: theme }}
       tabs={[
         {
-          title: "Overview",
-          url: "/docs/overview",
-          icon: <Book className="size-4" />,
+          title: "Admin",
+          url: "/docs/admin",
+          icon: <ShieldCheck className="size-4" />,
+        },
+        {
+          title: "Salesman",
+          url: "/docs/salesman",
+          icon: <TrendingUp className="size-4" />,
         },
         {
           title: "Voice Agent",

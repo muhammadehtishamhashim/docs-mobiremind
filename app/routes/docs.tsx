@@ -1,5 +1,5 @@
-import type { Route } from './+types/docs';
-import { DocsLayout } from 'fumadocs-ui/layouts/docs';
+import type { Route } from "./+types/docs";
+import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import {
   DocsBody,
   DocsDescription,
@@ -7,19 +7,28 @@ import {
   DocsTitle,
   MarkdownCopyButton,
   ViewOptionsPopover,
-} from 'fumadocs-ui/layouts/docs/page';
-import { getPageMarkdownUrl, source } from '@/lib/source';
-import browserCollections from 'collections/browser';
-import { baseOptions } from '@/lib/layout.shared';
-import { gitConfig } from '@/lib/shared';
-import { useFumadocsLoader } from 'fumadocs-core/source/client';
-import { getPageImagePath } from '@/lib/og';
-import { useMDXComponents } from '@/components/mdx';
+} from "fumadocs-ui/layouts/docs/page";
+import { getPageMarkdownUrl, source } from "@/lib/source";
+import browserCollections from "collections/browser";
+import { baseOptions } from "@/lib/layout.shared";
+import { gitConfig } from "@/lib/shared";
+import { useFumadocsLoader } from "fumadocs-core/source/client";
+import { getPageImagePath } from "@/lib/og";
+import { useMDXComponents } from "@/components/mdx";
+import { Book, Mic } from "lucide-react";
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const slugs = (params['*'] ?? '').split('/').filter((v) => v.length > 0);
+  const slugs = (params["*"] ?? "").split("/").filter((v) => v.length > 0);
+
+  if (slugs.length === 0) {
+    throw new Response(null, {
+      status: 302,
+      headers: { Location: "/docs/overview" },
+    });
+  }
+
   const page = source.getPage(slugs);
-  if (!page) throw new Response('Not found', { status: 404 });
+  if (!page) throw new Response("Not found", { status: 404 });
 
   return {
     path: page.path,
@@ -44,7 +53,11 @@ const clientLoader = browserCollections.docs.createClientLoader({
     },
   ) {
     return (
-      <DocsPage toc={toc}>
+      <DocsPage
+        toc={toc}
+        tableOfContent={{ style: "clerk" }}
+        tableOfContentPopover={{ style: "clerk" }}
+      >
         <title>{frontmatter.title}</title>
         <meta name="description" content={frontmatter.description} />
         <meta property="og:image" content={imagePath} />
@@ -66,10 +79,31 @@ const clientLoader = browserCollections.docs.createClientLoader({
 });
 
 export default function Page({ loaderData }: Route.ComponentProps) {
-  const { path, pageTree, imagePath, markdownUrl } = useFumadocsLoader(loaderData);
+  const { path, pageTree, imagePath, markdownUrl } =
+    useFumadocsLoader(loaderData);
+
+  const isVoiceAgent = path.startsWith("voice-agent");
 
   return (
-    <DocsLayout {...baseOptions()} tree={pageTree}>
+    <DocsLayout
+      {...baseOptions()}
+      tree={pageTree}
+      containerProps={{
+        className: isVoiceAgent ? "theme-yellow" : "theme-cyan",
+      }}
+      tabs={[
+        {
+          title: "Overview",
+          url: "/docs/overview",
+          icon: <Book className="size-4" />,
+        },
+        {
+          title: "Voice Agent",
+          url: "/docs/voice-agent",
+          icon: <Mic className="size-4" />,
+        },
+      ]}
+    >
       {clientLoader.useContent(path, { markdownUrl, path, imagePath })}
     </DocsLayout>
   );

@@ -1,6 +1,30 @@
-@import 'tailwindcss';
-@import 'fumadocs-ui/css/neutral.css';
-@import 'fumadocs-ui/css/preset.css';
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+@theme {
+  --color-fd-primary: var(--color-cyan-700);
+}
+
+.dark {
+  --color-fd-primary: var(--color-cyan-400);
+}
+
+.theme-yellow {
+  --color-fd-primary: var(--color-yellow-600);
+}
+
+.dark .theme-yellow, .theme-yellow.dark {
+  --color-fd-primary: var(--color-yellow-400);
+}
+
+.theme-cyan {
+  --color-fd-primary: var(--color-cyan-700);
+}
+
+.dark .theme-cyan, .theme-cyan.dark {
+  --color-fd-primary: var(--color-cyan-400);
+}
 
 html {
   scrollbar-gutter: stable;

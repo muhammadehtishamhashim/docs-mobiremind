@@ -3,12 +3,16 @@ import { glob } from 'node:fs/promises';
 import { createGetUrl, getSlugs } from 'fumadocs-core/source';
 import { getPageImagePath } from './app/lib/og';
 
-const getUrl = createGetUrl('/docs');
+const getUrl = createGetUrl('/');
 
 export default {
   ssr: true,
   future: {
     v8_middleware: true,
+    v8_splitRouteModules: true,
+    v8_viteEnvironmentApi: true,
+    v8_passThroughRequests: true,
+    v8_trailingSlashAwareDataRequests: true,
   },
   async prerender({ getStaticPaths }) {
     const paths: string[] = [];

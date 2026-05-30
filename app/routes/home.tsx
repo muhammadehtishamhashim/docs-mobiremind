@@ -1,7 +1,11 @@
 import type { Route } from './+types/home';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
-import { Link } from 'react-router';
+import { Link, redirect } from 'react-router';
 import { baseOptions } from '@/lib/layout.shared';
+
+export function loader() {
+  return redirect('/docs');
+}
 
 export function meta({}: Route.MetaArgs) {
   return [
